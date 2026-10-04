@@ -110,8 +110,9 @@ For rank-`k` MLWE over a ring of degree `d`, set `params.n = k*d` and pass `poly
 
 ## Files
 
-- `lwe_rot_primal.py` implements the estimator and the `estimate()` helper.
+- `lwe_rot_primal.py` implements the estimator and the `estimate()` function.
 - `lwe_rlwe_gap.py` generates the sparse LWE/RLWE gap estimates used in the paper.
+- `sparse_gap.txt` contains the output of `lwe_rlwe_gap.py` used for the LWE/RLWE gap table.
 - `sparse_estimates.py` estimates the recent sparse RLWE parameter sets in the appendix.
+- `sparse_estimates.txt` contains the output of `sparse_estimates.py` used for the appendix table.
 - `lattice_estimator/` is the pinned Lattice Estimator submodule used by this code.
-
