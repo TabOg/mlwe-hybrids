@@ -4,7 +4,6 @@ import sage
 from lattice_estimator.estimator import *
 from sage.all import oo
 from lwe_rot_primal import rot_primal_hybrid
-from lwe_rot_primal import estimate as rot_primal_estimate
 
 # log n, log q, h, sigma
 sparse_params = [
@@ -70,20 +69,32 @@ for (logn, logq, h, sigma) in sparse_params:
     print_dict(lwe_estimates)
     print()
 
-    # these are all RLWE; poly_degree = params.n
     poly_degree = params.n
-    rlwe_estimates = rot_primal_estimate(params, poly_degree=poly_degree)
-    print("rlwe estimates:")
-    print_dict(rlwe_estimates)
+    ring_no_mitm_estimate = rot_primal_hybrid(
+        params, babai=True, mitm=False, poly_degree=poly_degree
+    )
+    print(f"\t{ring_no_mitm_estimate=}")
+
+    ring_estimator_mitm_estimate = rot_primal_hybrid(
+        params,
+        babai=True,
+        mitm=True,
+        mitm_heuristic="estimator",
+        poly_degree=poly_degree,
+    )
+    print(f"\t{ring_estimator_mitm_estimate=}")
+
+    ring_square_root_mitm_estimate = rot_primal_hybrid(
+        params,
+        babai=True,
+        mitm=True,
+        mitm_heuristic="square root",
+        poly_degree=poly_degree,
+    )
+    print(f"\t{ring_square_root_mitm_estimate=}")
     print()
 
-    # this corresponds to heuristic 1 in the paper, i.e., only a square root split of the plain set is possible.
-    # we call this "estimator" because this is the same heuristic used by the lattice estimator.
-    # we omit this estimate as it is less conservative than the "square root" heuristic
-    # mitm_cost = rot_primal_hybrid(params, babai=True, mitm=True, poly_degree=poly_degree, mitm_heuristic="estimator")
-    # print(f"\testimator {mitm_cost=}")
-    # print()
-    
+
 sparse_params_ternary_error = [
     (14, 404, 256) # AC25
 ]
@@ -108,19 +119,27 @@ for (logn, logq, h) in sparse_params_ternary_error:
     print_dict(lwe_estimates)
     print()
 
-    # these are all RLWE; poly_degree = params.n
     poly_degree = params.n
-    rlwe_estimates = rot_primal_estimate(params, poly_degree=poly_degree)
-    print("rlwe estimates:")
-    print_dict(rlwe_estimates)
+    ring_no_mitm_estimate = rot_primal_hybrid(
+        params, babai=True, mitm=False, poly_degree=poly_degree
+    )
+    print(f"\t{ring_no_mitm_estimate=}")
+
+    ring_estimator_mitm_estimate = rot_primal_hybrid(
+        params,
+        babai=True,
+        mitm=True,
+        mitm_heuristic="estimator",
+        poly_degree=poly_degree,
+    )
+    print(f"\t{ring_estimator_mitm_estimate=}")
+
+    ring_square_root_mitm_estimate = rot_primal_hybrid(
+        params,
+        babai=True,
+        mitm=True,
+        mitm_heuristic="square root",
+        poly_degree=poly_degree,
+    )
+    print(f"\t{ring_square_root_mitm_estimate=}")
     print()
-
-    # this corresponds to heuristic 1 in the paper, i.e., only a square root split of the plain set is possible.
-    # we call this "estimator" because this is the same heuristic used by the lattice estimator.
-    # we omit this estimate as it is less conservative than the "square root" heuristic
-    # mitm_cost = rot_primal_hybrid(params, babai=True, mitm=True, poly_degree=poly_degree, mitm_heuristic="estimator")
-    # print(f"\testimator {mitm_cost=}")
-    # print()
-
-
-    
